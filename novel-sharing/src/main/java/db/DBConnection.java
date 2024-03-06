@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class DBConnection {
 	
 	public static Connection getConnection() throws ClassNotFoundException, SQLException {
-		final String URL = "jdbc:mysql://localhost/kobebook?useUnicode=true&characterEncoding=utf8";
+		final String URL = "jdbc:mysql://localhost/novel_sharing_app_db?useUnicode=true&characterEncoding=utf8";
 		final String USER = "root";
 		final String PASS = "root";
 		
