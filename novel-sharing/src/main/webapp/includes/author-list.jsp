@@ -4,15 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>小説一覧</title>
 <link rel="stylesheet" href="./css/sanitize.css">
 </head>
 <body>
-	<div>
-		<jsp:include page="/includes/navbar.jsp" />
-	</div>
-	<div>
-		<jsp:include page="/includes/author-list.jsp" />
+	<div class="author-container">
+		<h2 class="author">作家一覧</h2>
+		<ul>
+			<li><a href="#">芥川龍之介</a></li>
+		</ul>
 	</div>
 </body>
 </html>
