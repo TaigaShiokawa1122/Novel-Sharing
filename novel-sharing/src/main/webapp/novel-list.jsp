@@ -16,8 +16,12 @@
 	<div>
 		<jsp:include page="/includes/navbar.jsp" />
 	</div>
+	
+		<input type="text" name="search" placeholder="タイトルを検索">
 	<div>
 		<jsp:include page="/includes/author-list.jsp" />
+		
+		<!-- 小説一覧 -->
 	</div>
 </body>
 </html>

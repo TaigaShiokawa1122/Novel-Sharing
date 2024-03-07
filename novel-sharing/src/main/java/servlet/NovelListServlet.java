@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.bean.AuthorBean;
+import model.bean.NovelBean;
 import model.dao.NovelDAO;
 
 /**
@@ -24,16 +25,17 @@ public class NovelListServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		List<AuthorBean> authorList = new ArrayList<>();
+		List<NovelBean> novelList = new ArrayList<>();
 		NovelDAO nDao = new NovelDAO();
 		
 		try {
 			authorList = nDao.getAllAuthors();
+			novelList = nDao.getAllNovels();
 			
-			if(authorList == null || authorList.isEmpty()) {
-				request.setAttribute("authorUnregistered", "作家が未登録です。");
-			} else {
-				request.setAttribute("authorList", authorList);
-			}
+			//作家一覧
+			authorResult(request, response, authorList);
+			//小説一覧
+			novelResult(request, response, novelList);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -45,6 +47,24 @@ public class NovelListServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
+	}
+	
+	//作家一覧の取得確認
+	private void authorResult(HttpServletRequest request, HttpServletResponse response, List<AuthorBean> authorList) {
+		if(authorList == null || authorList.isEmpty()) {
+			request.setAttribute("authorUnregistered", "作家が未登録です。");
+		} else {
+			request.setAttribute("authorList", authorList);
+		}
+	}
+	
+	//小説一覧の取得確認
+	private void novelResult(HttpServletRequest request, HttpServletResponse response, List<NovelBean> novelList) {
+		if(novelList == null || novelList.isEmpty()) {
+			request.setAttribute("novelUnregistered", "作家が未登録です。");
+		} else {
+			request.setAttribute("novelList", novelList);
+		}
 	}
 
 }
