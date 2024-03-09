@@ -39,7 +39,9 @@ public class NovelDAO {
 	//全ての小説取得
 	public List<NovelBean> getAllNovels() throws ClassNotFoundException, SQLException {
 		List<NovelBean> novelList = new ArrayList<>();
-		String sql = "SELECT * FROM novels";
+		String sql = "SELECT * FROM novels n "
+				+ "INNER JOIN authors a ON a.author_id = n.author_id "
+				+ "INNER JOIN genres g ON g.genre_id = n.genre_id";
 		
 		try (Connection con = DBConnection.getConnection(); 
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
