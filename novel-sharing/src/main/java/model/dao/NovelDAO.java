@@ -18,7 +18,7 @@ public class NovelDAO {
 	public List<AuthorBean> getAllAuthors() throws ClassNotFoundException, SQLException {
 		List<AuthorBean> authorList = new ArrayList<>();
 		AuthorBean author = null;
-		String sql = "SELECT * FROM authors";
+		String sql = "SELECT * FROM authors ORDER BY furigana ASC";
 		try (Connection con = DBConnection.getConnection(); 
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			
@@ -54,6 +54,7 @@ public class NovelDAO {
 				novel.setNovelId(res.getInt("novel_id"));
 				novel.setTitle(res.getString("title"));
 				novel.setSummary(res.getString("summary"));
+				novel.setImage(res.getString("image"));
 				author.setAuthorId(res.getInt("author_id"));
 				author.setAuthorName(res.getString("author_name"));
 				author.setFurigana(res.getString("furigana"));

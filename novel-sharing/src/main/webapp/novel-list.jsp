@@ -11,17 +11,29 @@
 <meta charset="UTF-8">
 <title>小説一覧</title>
 <link rel="stylesheet" href="./css/sanitize.css">
+<link rel="stylesheet" href="./css/novel-list.css">
 </head>
 <body>
-	<div>
-		<jsp:include page="/includes/navbar.jsp" />
-	</div>
+
+	<jsp:include page="/includes/navbar.jsp" />
 	
-		<input type="text" name="search" placeholder="タイトルを検索">
-	<div>
-		<jsp:include page="/includes/author-list.jsp" />
+	<input type="text" name="search" placeholder="タイトルを検索">
+	
+	<jsp:include page="/includes/author-list.jsp" />
+
 		
-		<!-- 小説一覧 -->
-	</div>
+	<!-- 小説一覧 -->
+
+	<% List<NovelBean> novelList = (List<NovelBean>) request.getAttribute("novelList"); %>
+	<% String novelUnregistered = (String) request.getAttribute("novelUnregistered"); %>
+	
+		<% if (novelUnregistered != null) { %>
+		<p><%= novelUnregistered %></p>
+		<% } else { %>
+			<% for (NovelBean novels : novelList) { %>
+				<img alt="No Image" src="./images/<%=novels.getImage() %>">
+				<p><%=novels.getTitle() %></p>
+			<% } %>
+		<% } %>
 </body>
 </html>

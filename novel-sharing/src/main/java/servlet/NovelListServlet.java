@@ -61,7 +61,7 @@ public class NovelListServlet extends HttpServlet {
 	//小説一覧の取得確認
 	private void novelResult(HttpServletRequest request, HttpServletResponse response, List<NovelBean> novelList) {
 		if(novelList == null || novelList.isEmpty()) {
-			request.setAttribute("novelUnregistered", "作家が未登録です。");
+			request.setAttribute("novelUnregistered", "小説が未登録です。");
 		} else {
 			request.setAttribute("novelList", novelList);
 		}
