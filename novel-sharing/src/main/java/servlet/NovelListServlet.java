@@ -26,16 +26,27 @@ public class NovelListServlet extends HttpServlet {
 		
 		List<AuthorBean> authorList = new ArrayList<>();
 		List<NovelBean> novelList = new ArrayList<>();
+		List<NovelBean> listOfSearchedNovels = new ArrayList<>();
 		NovelDAO nDao = new NovelDAO();
 		
 		try {
+			String searchTitle = request.getParameter("search");
+			
 			authorList = nDao.getAllAuthors();
 			novelList = nDao.getAllNovels();
+			listOfSearchedNovels = nDao.searchAllNovelsByTitle(searchTitle);
 			
 			//作家一覧
 			authorResult(request, response, authorList);
-			//小説一覧
-			novelResult(request, response, novelList);
+			
+			if (searchTitle == null) {
+				//小説一覧
+				novelResult(request, response, novelList);				
+			} else {
+				//検索結果の小説一覧
+				listOfSearchedNovelsResult(request, response, listOfSearchedNovels);
+			}
+			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -66,5 +77,13 @@ public class NovelListServlet extends HttpServlet {
 			request.setAttribute("novelList", novelList);
 		}
 	}
-
+	
+	//検索結果の小説一覧
+	private void listOfSearchedNovelsResult(HttpServletRequest request, HttpServletResponse response, List<NovelBean> listOfSearchedNovels) {
+		if(listOfSearchedNovels == null || listOfSearchedNovels.isEmpty()) {
+			request.setAttribute("noSearchResult", "検索結果がありません。");
+		} else {
+			request.setAttribute("listOfSearchedNovels", listOfSearchedNovels);
+		}
+	}
 }

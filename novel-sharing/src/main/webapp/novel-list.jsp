@@ -26,7 +26,6 @@
 
 	<% List<NovelBean> novelList = (List<NovelBean>) request.getAttribute("novelList"); %>
 	<% String novelUnregistered = (String) request.getAttribute("novelUnregistered"); %>
-	
 		<% if (novelUnregistered != null) { %>
 		<p><%= novelUnregistered %></p>
 		<% } else { %>
