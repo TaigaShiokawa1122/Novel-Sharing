@@ -17,22 +17,28 @@
 
 	<jsp:include page="/includes/navbar.jsp" />
 	
-	<input type="text" name="search" placeholder="タイトルを検索">
+	<form action="NovelListServlet" method="get">
+		<input type="text" name="search" placeholder="タイトルを検索">
+	</form>
 	
 	<jsp:include page="/includes/author-list.jsp" />
 
 		
 	<!-- 小説一覧 -->
-
 	<% List<NovelBean> novelList = (List<NovelBean>) request.getAttribute("novelList"); %>
 	<% String novelUnregistered = (String) request.getAttribute("novelUnregistered"); %>
-		<% if (novelUnregistered != null) { %>
-		<p><%= novelUnregistered %></p>
-		<% } else { %>
-			<% for (NovelBean novels : novelList) { %>
-				<img alt="No Image" src="./images/<%=novels.getImage() %>">
-				<p><%=novels.getTitle() %></p>
-			<% } %>
+	<% String noSearchResult = (String) request.getAttribute("noSearchResult"); %>
+	
+	<% if (noSearchResult != null) { %>
+	<p><%=noSearchResult %></p>
+	<% } else if (novelUnregistered != null) { %>
+	<p><%=novelUnregistered %></p>
+	<% } else { %>
+		<% for (NovelBean novels : novelList) { %>
+			<img alt="No Image" src="./images/<%=novels.getImage() %>">
+			<p><%=novels.getTitle() %></p>
 		<% } %>
+	<% } %>
+
 </body>
 </html>

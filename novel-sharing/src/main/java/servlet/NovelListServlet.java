@@ -39,7 +39,7 @@ public class NovelListServlet extends HttpServlet {
 			//作家一覧
 			authorResult(request, response, authorList);
 			
-			if (searchTitle == null) {
+			if (searchTitle == null || searchTitle.isEmpty()) {
 				//小説一覧
 				novelResult(request, response, novelList);				
 			} else {
@@ -54,12 +54,6 @@ public class NovelListServlet extends HttpServlet {
 		request.getRequestDispatcher("novel-list.jsp").forward(request, response);
 	}
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
-		
-	}
-	
 	//作家一覧の取得確認
 	private void authorResult(HttpServletRequest request, HttpServletResponse response, List<AuthorBean> authorList) {
 		if(authorList == null || authorList.isEmpty()) {
@@ -83,7 +77,7 @@ public class NovelListServlet extends HttpServlet {
 		if(listOfSearchedNovels == null || listOfSearchedNovels.isEmpty()) {
 			request.setAttribute("noSearchResult", "検索結果がありません。");
 		} else {
-			request.setAttribute("listOfSearchedNovels", listOfSearchedNovels);
+			request.setAttribute("novelList", listOfSearchedNovels);
 		}
 	}
 }
