@@ -21,7 +21,7 @@ public class AdminLoginServlet extends HttpServlet {
       
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		response.sendRedirect("admin-login.jsp");
+		request.getRequestDispatcher("/WEB-INF/admin-assets/admin-login.jsp").forward(request, response);
 		
 	}
 
@@ -38,7 +38,7 @@ public class AdminLoginServlet extends HttpServlet {
 			admin = adminDao.adminLogin(email,hashedPass);
 			if(admin == null) {
 				request.setAttribute("notFound", "ログインに失敗しました。");
-				request.getRequestDispatcher("admin-login.jsp").forward(request, response);
+				request.getRequestDispatcher("/WEB-INF/admin-assets/admin-login.jsp").forward(request, response);
 				return;
 			} else {
 				request.getSession().setAttribute("admin", admin);
