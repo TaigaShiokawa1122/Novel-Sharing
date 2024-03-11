@@ -13,6 +13,42 @@ import model.bean.GenreBean;
 
 public class AdminDAO {
 	
+		//管理者ログイン
+		public AdminBean adminLogin(String email, String password) throws ClassNotFoundException, SQLException {
+			AdminBean admin = null;
+			String sql = "SELECT * FROM admins WHERE email = ? AND password = ?";
+			try (Connection con = DBConnection.getConnection();
+					PreparedStatement pstmt = con.prepareStatement(sql)) {
+				pstmt.setString(1, email);
+				pstmt.setString(2, password);
+				ResultSet res = pstmt.executeQuery();
+				if (res.next()) {
+					admin = new AdminBean();
+					admin.setAdminId(res.getInt("admin_id"));
+					admin.setNickName(res.getString("nick_name"));
+					admin.setEmail(res.getString("email"));
+				}
+			}
+			return admin;
+		}
+
+		//管理者IDの取得
+		public int getAdminId(String email) throws ClassNotFoundException, SQLException {
+			int adminId = -1;
+			String sql = "SELECT * FROM admins WHERE email = ?";
+			try (Connection con = DBConnection.getConnection();
+					PreparedStatement pstmt = con.prepareStatement(sql)) {
+				pstmt.setString(1, email);
+
+				ResultSet res = pstmt.executeQuery();
+				if (res.next()) {
+					adminId = res.getInt("admin_id");
+				}
+			}
+			return adminId;
+		}
+
+	
 		//管理者追加（まだ未作成のメソッド）	
 		public int addAdmin(String adminName,String email,String hashedPass) throws ClassNotFoundException, SQLException {
 			return 1;
@@ -41,19 +77,7 @@ public class AdminDAO {
 		
 		}
 		
-				
-		//管理者ログイン（まだ未作成のメソッド）	
-		public AdminBean adminLogin(String email,String hashedPass) throws ClassNotFoundException, SQLException {
-			AdminBean admin = new AdminBean();
-			admin = null;
-			return admin;
-		}
-		
-		//管理者ID（まだ未作成のメソッド、というかこのメソッドいらんかも？）	
-		public int getAdminId(String email ) throws ClassNotFoundException, SQLException {
-			return 1;
-		}
-		
+
 		//管理者ID（まだ未作成のメソッド、というかこのメソッドいらんかも？）	
 		public List<GenreBean> getAllGenres() throws ClassNotFoundException, SQLException {
 			List<GenreBean> genreList = new ArrayList<>();
