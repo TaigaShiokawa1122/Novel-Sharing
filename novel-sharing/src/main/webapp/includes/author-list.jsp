@@ -14,7 +14,7 @@
 	<% } else { %>
 		<% for (AuthorBean author : authorList) { %>
 		<ul>
-			<li><a href="#"><%=author.getAuthorName() %></a></li>
+			<li><a href="NovelListByAuthorServlet?authorId=<%=author.getAuthorId() %>"><%=author.getAuthorName() %></a></li>
 		</ul>
 		<% } %>
 	<% } %>
