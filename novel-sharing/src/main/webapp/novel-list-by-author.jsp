@@ -21,7 +21,6 @@
 	<form action="NovelListByAuthorServlet" method="get">
 		<input type="text" name="search" placeholder="タイトルを検索">
 		<input type="hidden" name="authorId" value="<%=authorId %>">
-		<a href="aaa?aa=<%=authorId %>"></a>
 	</form>
 	
 	<!-- 作家一覧 -->
@@ -34,7 +33,7 @@
 	
 	<% if (noSearchResult != null) { %>
 	<p><%=noSearchResult %></p>
-	<% } else if (novelUnregistered) { %>
+	<% } else if (novelUnregistered != null) { %>
 	<p><%=novelUnregistered %></p>
 	<% } else { %>
 	 	<% for (NovelBean novels : novelList) { %>

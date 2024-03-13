@@ -76,7 +76,7 @@ public class NovelDAO {
 		String sql = "SELECT * FROM novels n "
 				+ "INNER JOIN authors a ON a.author_id = n.author_id "
 				+ "INNER JOIN genres g ON g.genre_id = n.genre_id "
-				+ "WHERE author_id = ?";
+				+ "WHERE n.author_id = ?";
 		
 		try (Connection con = DBConnection.getConnection(); 
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -150,7 +150,7 @@ public class NovelDAO {
 		String sql = "SELECT * FROM novels n "
 				+ "INNER JOIN authors a ON a.author_id = n.author_id "
 				+ "INNER JOIN genres g ON g.genre_id = n.genre_id "
-				+ "WHERE author_id = ? AND title LIKE ?";
+				+ "WHERE n.author_id = ? AND title LIKE ?";
 		
 		try (Connection con = DBConnection.getConnection(); 
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
