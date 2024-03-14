@@ -37,8 +37,10 @@
 		<ul>
 			<% for (NovelBean novels : novelList) { %>
 				<li> <!-- 管理者小説詳細へ -->
-					<img alt="No Image" src="./images/<%=novels.getImage() %>">
-					<p><%=novels.getTitle() %></p>
+					 <a href="AdminNovelEditServlet?novelId=<%= novels.getNovelId() %>">
+						<img alt="No Image" src="./images/<%=novels.getImage() %>">
+						<p><%=novels.getTitle() %></p>
+					</a>
 				</li>
 			<% } %>
 		</ul>
