@@ -49,9 +49,28 @@ public class AdminDAO {
 		}
 
 	
-		//管理者追加（まだ未作成のメソッド）	
+		//管理者追加
 		public int addAdmin(String adminName,String email,String hashedPass) throws ClassNotFoundException, SQLException {
-			return 1;
+			
+			String sql = "INSERT INTO admins (nickname,email,hashed_password) VALUES (? , ? , ?)";
+			int processingNum = 0;
+			try (Connection con = DBConnection.getConnection(); 
+					PreparedStatement pstmt = con.prepareStatement(sql)) {
+				pstmt.setString(1, adminName);
+				pstmt.setString(2, email);
+				pstmt.setString(3, hashedPass);
+				processingNum = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+	                               ", SQLステート: " + e.getSQLState() + 
+	                               ", エラーコード: " + e.getErrorCode());
+			} catch (Exception e) {
+				System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+	                               ", メッセージ: " + e.getMessage() + 
+	                               ", スタックトレース: " + e.getStackTrace());
+			}
+			
+			return processingNum;
 		}
 		
 		//ジャンル追加（まだ未作成のメソッド）	

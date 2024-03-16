@@ -20,7 +20,7 @@
 			<main>
 				<div class="admin_add_form">
 					<form action="AdminAddServlet" method="post">
-						<p class="error">${error}</p> <!-- 既に使用済みのメールアドレスだった場合 -->
+						<p class="message">${message}</p> <!-- 既に使用済みのメールアドレスだった場合 -->
 						<input type="text" id="adminName" name="adminName"  placeholder="管理者氏名" required><br> <!-- 失敗時、名前残るようにする? -->
 						<input type="email" id="email" name="email"  placeholder="email" required><br> <!-- 失敗時、メアド残るようにする? -->		
 						<input type="password" id="password" name="password" placeholder="password" required><br>
