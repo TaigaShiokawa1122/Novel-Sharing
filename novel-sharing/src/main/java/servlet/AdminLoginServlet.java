@@ -39,7 +39,6 @@ public class AdminLoginServlet extends HttpServlet {
 			if(admin == null) {
 				request.setAttribute("notFound", "ログインに失敗しました。");
 				request.getRequestDispatcher("/WEB-INF/admin-assets/admin-login.jsp").forward(request, response);
-				return;
 			} else {
 				request.getSession().setAttribute("admin", admin);
 				request.getSession().setAttribute("adminId", adminDao.getAdminId(email));

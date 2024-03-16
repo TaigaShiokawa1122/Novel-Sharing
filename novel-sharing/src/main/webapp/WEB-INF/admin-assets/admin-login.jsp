@@ -19,7 +19,7 @@
 			--%>
 			<main>
 				<div class="login_form">
-					<form action="LoginServlet" method="post">
+					<form action="AdminLoginServlet" method="post">
 						<p class="logmiss">${notFound}</p> <!-- ログイン失敗した時 -->
 						<input type="email" id="email" name="email"  placeholder="email" required><br> <!-- 失敗時、メアド残るようにする? -->		
 						<input type="password" id="password" name="password" placeholder="password" required><br>

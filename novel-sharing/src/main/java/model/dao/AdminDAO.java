@@ -16,7 +16,7 @@ public class AdminDAO {
 		//管理者ログイン
 		public AdminBean adminLogin(String email, String password) throws ClassNotFoundException, SQLException {
 			AdminBean admin = null;
-			String sql = "SELECT * FROM admins WHERE email = ? AND password = ?";
+			String sql = "SELECT * FROM admins WHERE email = ? AND hashed_password = ?";
 			try (Connection con = DBConnection.getConnection();
 					PreparedStatement pstmt = con.prepareStatement(sql)) {
 				pstmt.setString(1, email);
@@ -25,7 +25,7 @@ public class AdminDAO {
 				if (res.next()) {
 					admin = new AdminBean();
 					admin.setAdminId(res.getInt("admin_id"));
-					admin.setNickName(res.getString("nick_name"));
+					admin.setNickName(res.getString("nickname"));
 					admin.setEmail(res.getString("email"));
 				}
 			}
