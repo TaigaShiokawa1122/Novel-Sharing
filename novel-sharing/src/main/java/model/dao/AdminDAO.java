@@ -116,7 +116,6 @@ public class AdminDAO {
 		}
 		
 		//追加しようとしているジャンル名が既に登録されていないか
-		//カテゴリーが今あるかどうか
 		public boolean getGenre(String genreName) throws ClassNotFoundException, SQLException {
 			String sql = "SELECT COUNT(genre_name = ? ) AS c FROM genres WHERE genre_name = ?"; 
 			
@@ -147,4 +146,51 @@ public class AdminDAO {
 			}
 			return genre;
 		}
+		
+		public int deleteGenre( int genreId ) throws ClassNotFoundException, SQLException {
+			String sql = "DELETE FROM genres WHERE genre_id = ?";
+			int processingNum = 0;
+			
+			try (Connection con = DBConnection.getConnection(); 
+					PreparedStatement pstmt = con.prepareStatement(sql)) {
+				pstmt.setInt(1, genreId);
+				processingNum = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+	                               ", SQLステート: " + e.getSQLState() + 
+	                               ", エラーコード: " + e.getErrorCode());
+			}
+			return processingNum;
+		}
+		
+		
+		//このカテゴリーを選択している小説が今あるかどうか
+		public boolean unusedGenre( int genreId ) throws ClassNotFoundException, SQLException {
+			
+			String sql = "SELECT COUNT( genre_id = ? ) AS c FROM novels WHERE genre_id = ?";//postsテーブルの全データをsqlに格納
+			int count = -1;
+			boolean unused = false;
+			
+			try(Connection con = DBConnection.getConnection();
+					PreparedStatement pstmt = con.prepareStatement(sql)){
+				pstmt.setInt(1, genreId);
+				pstmt.setInt(2, genreId);
+			    ResultSet res = pstmt.executeQuery();
+			    
+			    while (res.next()) {
+			    	count = res.getInt("c");
+			    }
+				
+			    if( count == 0 ) {
+			    	unused = true;
+				}
+			    
+			} catch (SQLException e) {
+				System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+	                               ", SQLステート: " + e.getSQLState() + 
+	                               ", エラーコード: " + e.getErrorCode());
+			}
+			return unused;
+		}
+		
 }

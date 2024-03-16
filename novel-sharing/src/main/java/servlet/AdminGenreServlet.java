@@ -43,8 +43,6 @@ public class AdminGenreServlet extends HttpServlet {
 		List<GenreBean> genreList = new ArrayList<>();
 		AdminDAO adminDao = new AdminDAO();
 		
-		
-		
 		String genre = request.getParameter("genre");
 		int row = 0;
 		boolean unregistered = false;

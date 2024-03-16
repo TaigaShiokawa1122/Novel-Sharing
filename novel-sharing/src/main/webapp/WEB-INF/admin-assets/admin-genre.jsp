@@ -24,17 +24,18 @@
 					<p>${genreDeleteError}</p>
 					<% if(genreList == null) { %>
 						<p>現在、登録されているジャンルはありません</p>
-						<% } else {  %>
-							<form action="GenreDeleteServlet" method="post">
+						<% } else {  %>	
 								<% for(GenreBean genre : genreList) { %>
-									<label>
-						    			<input type="checkbox" name="delete_genre" value="<%=genre.getGenreId()%>"><%=genre.getGenre_name()%>
-						    		</label>
+									<form action="AdminDeleteGenreServlet" method="post">
+										<label>
+											<%= genre.getGenre_name() %>
+							    			<input type="hidden" name="genreId" value="<%=genre.getGenreId()%>">
+							    			<input type="hidden" name="genreName" value="<%=genre.getGenre_name()%>">
+							    			<button type="submit">削除</button><br>
+							    		</label>
+							    	</form>
 								<% } %>
-								<button type="submit">削除</button>
-							</form>
-						<% } %>
-					
+					<% } %>
 				</div>
 				
 				<div class="ganre_add_form">
@@ -43,7 +44,6 @@
 						<input type="text" id="genre" name="genre" placeholder="ジャンル名" value="" required><br> <!-- 失敗時、入力値残るようにする? -->
 						<button type="submit">ジャンル新規登録</button><br>
 					</form>
-					<!-- 既存のジャンルを表示させて、削除もできるようにする？ -->
 				</div>
 			</main>
 		</body>
