@@ -37,6 +37,9 @@
 	<p><%=novelUnregistered %></p>
 	<% } else { %>
 	 	<% for (NovelBean novels : novelList) { %>
+	 	<a href="NovelDetailServlet?novelId=<%=novels.getNovelId() %>">
+	 		<img alt="小説画像" src="./images/<%=novels.getImage() %>">
+	 	</a>
 	 	<p><%=novels.getTitle() %></p>
 	 	<% } %>
 	<% } %>

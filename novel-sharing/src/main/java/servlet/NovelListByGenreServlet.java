@@ -27,16 +27,24 @@ public class NovelListByGenreServlet extends HttpServlet {
 		
 		List<NovelBean> novelList = new ArrayList<>();
 		List<AuthorBean> authorList = new ArrayList<>();
+		List<NovelBean> listOfSearchedNovels = new ArrayList<>();
 		
 		NovelDAO nDao = new NovelDAO();
 		
 		try {
-			
 			authorList = nDao.getAllAuthors();
 			novelList = nDao.getNovelListByGenre(genreId);
+			listOfSearchedNovels = nDao.searchAllNovesByGenre(genreId, search);
 			
-			genreResult(request, response, authorList);
-			novelListByGenreResult(request, response, novelList);
+			authorResult(request, response, authorList);
+			
+			if (search == null || search.isEmpty()) {
+				novelListByGenreResult(request, response, novelList);				
+			} else {
+				listOfSearchedNovelsByGenreResult(request, response, listOfSearchedNovels);
+			}
+			request.getSession().setAttribute("genreId", genreId);
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -50,7 +58,7 @@ public class NovelListByGenreServlet extends HttpServlet {
 	}
 	
 	//作家一覧の取得確認
-	private void genreResult(HttpServletRequest request, HttpServletResponse response, List<AuthorBean> authorList) {
+	private void authorResult(HttpServletRequest request, HttpServletResponse response, List<AuthorBean> authorList) {
 		if(authorList == null || authorList.isEmpty()) {
 			request.setAttribute("authorUnregistered", "作家が未登録です。");
 		} else {
@@ -65,6 +73,17 @@ public class NovelListByGenreServlet extends HttpServlet {
 			request.setAttribute("novelUnregistered", "小説が未登録です。");
 		} else {
 			request.setAttribute("novelList", novelList);
+		}
+		request.getRequestDispatcher("novel-list-by-genre.jsp").forward(request, response);
+	}
+	
+	//ジャンル別検索結果　取得結果
+	private void listOfSearchedNovelsByGenreResult(HttpServletRequest request, HttpServletResponse response, List<NovelBean> listOfSearchedNovels) 
+			throws ServletException, IOException {
+		if (listOfSearchedNovels == null || listOfSearchedNovels.isEmpty()) {
+			request.setAttribute("novelUnregistered", "小説が未登録です。");
+		} else {
+			request.setAttribute("novelList", listOfSearchedNovels);
 		}
 		request.getRequestDispatcher("novel-list-by-genre.jsp").forward(request, response);
 	}

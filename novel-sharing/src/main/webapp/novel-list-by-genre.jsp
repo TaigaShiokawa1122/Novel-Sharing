@@ -10,6 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <title>ジャンル別 小説一覧</title>
+<link rel="stylesheet" href="./css/sanitize.css">
 </head>
 <body>
 
@@ -17,10 +18,10 @@
 	<jsp:include page="/includes/navbar.jsp" />
 	
 	<!-- 検索ボックス 全ての小説 -->
-	<% Integer authorId = (Integer)request.getSession().getAttribute("authorId");  %>
-	<form action="NovelListByAuthorServlet" method="get">
+	<% Integer genreId = (Integer)request.getSession().getAttribute("genreId");  %>
+	<form action="NovelListByGenreServlet" method="get">
 		<input type="text" name="search" placeholder="タイトルを検索">
-		<input type="hidden" name="authorId" value="<%=authorId %>">
+		<input type="hidden" name="genreId" value="<%=genreId %>">
 	</form>
 	
 	<!-- 作家一覧 -->
@@ -34,6 +35,9 @@
 	<p><%= novelUnregistered %></p>
 	<% } else { %>
 		<% for (NovelBean novel : novelList) { %>
+		<a href="NovelDetailServlet?novelId=<%=novel.getNovelId() %>">
+			<img alt="小説画像" src="./images/<%= novel.getImage() %>">
+		</a>
 		<p><%= novel.getTitle() %></p>
 		<% } %>
 	<% } %>
