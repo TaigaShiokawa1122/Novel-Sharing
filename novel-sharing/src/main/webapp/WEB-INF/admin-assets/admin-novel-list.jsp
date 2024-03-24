@@ -22,7 +22,7 @@
 	
 	<jsp:include page="/includes/admin-author-list.jsp" />
 	
-
+	<p>${message}</p>
 		
 	<!-- 小説一覧 -->
 	<% List<NovelBean> novelList = (List<NovelBean>) request.getAttribute("novelList"); %>

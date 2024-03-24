@@ -315,5 +315,66 @@ public class AdminDAO {
 					return authorList;
 				}
 				
+				//小説更新(テキストベース)
+				public int updateNovel(String type , String text,  int novelId) throws ClassNotFoundException, SQLException {
+					
+					String sql = "UPDATE novels SET " + type + " = ? WHERE novel_id = ?";
+					int processingNum = 0;
+					
+
+					
+					System.out.println(sql + "です");
+					
+					try (Connection con = DBConnection.getConnection(); 
+							PreparedStatement pstmt = con.prepareStatement(sql)) {
+						pstmt.setString(1, text);
+						pstmt.setInt(2, novelId);
+						processingNum = pstmt.executeUpdate();
+					} catch (SQLException e) {
+						System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+			                               ", SQLステート: " + e.getSQLState() + 
+			                               ", エラーコード: " + e.getErrorCode());
+					}
+					return processingNum;
+				}
+				
+				
+				//小説更新(IDベース)
+				public int updateNovel(String type , int id , int novelId) throws ClassNotFoundException, SQLException {
+					
+					String sql = "UPDATE novels SET " + type + " = ? WHERE novel_id = ?";
+					int processingNum = 0;
+					
+					try (Connection con = DBConnection.getConnection(); 
+							PreparedStatement pstmt = con.prepareStatement(sql)) {
+						pstmt.setInt(1, id);
+						pstmt.setInt(2, novelId);
+						processingNum = pstmt.executeUpdate();
+					} catch (SQLException e) {
+						System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+			                               ", SQLステート: " + e.getSQLState() + 
+			                               ", エラーコード: " + e.getErrorCode());
+					}
+					return processingNum;
+				}
+				
+				
+				//小説削除
+				public int deleteNovel( int novelId ) throws ClassNotFoundException, SQLException {
+					String sql = "DELETE FROM novels WHERE novel_id = ?";
+					int processingNum = 0;
+					
+					try (Connection con = DBConnection.getConnection(); 
+							PreparedStatement pstmt = con.prepareStatement(sql)) {
+						pstmt.setInt(1, novelId);
+						processingNum = pstmt.executeUpdate();
+					} catch (SQLException e) {
+						System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+			                               ", SQLステート: " + e.getSQLState() + 
+			                               ", エラーコード: " + e.getErrorCode());
+					}
+					return processingNum;
+				}
+				
 				
 }
