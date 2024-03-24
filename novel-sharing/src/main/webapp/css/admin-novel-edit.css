@@ -1,0 +1,68 @@
+@charset "UTF-8";
+
+
+/* モーダルウィンドウ　削除確認画面　*/
+
+	.modal-content {
+	 width: 30%;
+	 background-color: #f4f4f4;
+	 margin: 400px auto;
+	 border-radius:5px ;
+	 padding: 5%;
+	 box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2),0 7px 20px 0 rgba(0,0,0,0.17);
+	 animation-name: modalopen;
+	 animation-duration: 1s;
+	}
+	
+	@keyframes modalopen {
+		  from {opacity: 0}
+		  to {opacity: 1}
+	}
+
+		.modal {
+		  display: none;
+		  position: fixed;
+		  z-index: 1;
+		  left: 0;
+		  top: 0;
+		  width: 100%;
+		  height:100%;
+		  max-height: 100vh;
+		  max-width: 100vw;
+		  overflow: auto;
+		  background-color: rgba(0,0,0,0.5);
+		}
+		
+		.modal-header h1 {
+		  margin: 1rem 0;
+		}
+		
+		.modal-body p{
+		  font-size: 20px;
+		  text-align: center;
+		}
+		
+		 .check{
+		 color:rgb(54, 55, 55);
+		  font-size:16px;
+		  text-align:center;
+	  }
+	  
+	   	.modalClose, .delete{
+		   width: 40%;
+		   height:60px;
+		   border-radius:5px ;
+		   line-height: 60px;
+		   margin-top:60px;
+	   }
+	   
+	   .modalClose{
+		   text-align: center;
+		   border: #333 2px solid;
+	   }
+	   
+	  
+	  .modalClose:hover, .delete:hover{
+		  opacity: .6;
+	  }
+	  

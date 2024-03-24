@@ -36,6 +36,27 @@ public class NovelDAO {
 		return authorList;
 	}
 	
+	//全てのジャンル取得
+		public List<GenreBean> getAllGenres() throws ClassNotFoundException, SQLException {
+			List<GenreBean> genreList = new ArrayList<>();
+			GenreBean genre = null;
+			String sql = "SELECT * FROM genres ORDER BY genre_name ASC";
+			try (Connection con = DBConnection.getConnection(); 
+					PreparedStatement pstmt = con.prepareStatement(sql)) {
+				
+				ResultSet res = pstmt.executeQuery();
+				while(res.next()) {
+					genre = new GenreBean();
+					genre.setGenreId(res.getInt("genre_id"));
+					genre.setGenre_name(res.getString("genre_name"));
+					
+					genreList.add(genre);
+				}
+				
+			}
+			return genreList;
+		}
+	
 	//全ての小説取得
 	public List<NovelBean> getAllNovels() throws ClassNotFoundException, SQLException {
 		List<NovelBean> novelList = new ArrayList<>();
