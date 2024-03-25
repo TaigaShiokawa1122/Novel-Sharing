@@ -14,13 +14,13 @@
 <link rel="stylesheet" href="./css/novel-list.css">
 </head>
 <body>
-
+<jsp:include page="/includes/admin-navbar.jsp" />
 	
 	<form action="AdminNovelListServlet" method="get">
 		<input type="text" name="search" placeholder="タイトルを検索">
 	</form>
-	<%-- 
-	<jsp:include page="/includes/admin-author-list.jsp" /> --%>
+	<jsp:include page="/includes/admin-author-list.jsp" />
+
 	
 	<p>${message}</p>
 		

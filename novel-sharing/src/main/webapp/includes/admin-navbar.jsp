@@ -16,11 +16,11 @@
 		<img alt="サイトロゴ" src="../images/">
 		<div class="navbar">
 			<ul>
-				<li><a href="NovelListServlet">トップ</a></li>
-				<li><a href="NovelListByGenreServlet?genreId=1">恋愛</a></li>
-				<li><a href="NovelListByGenreServlet?genreId=2">SF / ホラー / ファンタジー</a></li>
-				<li><a href="NovelListByGenreServlet?genreId=3">ミステリー / サスペンス</a></li>
-				<li><a href="NovelListByGenreServlet?genreId=4">現代文学</a></li>
+				<li><a href="AdminNovelListServlet">トップ</a></li>
+				<% List<GenreBean> genreList = (List<GenreBean>)request.getAttribute("genreList"); %>
+				<% for (GenreBean genre : genreList) { %>
+					<li><a href="AdminNovelListByGenreServlet?genreId=<%=genre.getGenreId() %>"><%=genre.getGenre_name() %></a></li>
+				<% } %>
 			</ul>
 		</div>
 	</div>
