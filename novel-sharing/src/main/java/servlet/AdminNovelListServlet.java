@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.bean.AuthorBean;
+import model.bean.GenreBean;
 import model.bean.NovelBean;
 import model.dao.NovelDAO;
 
@@ -26,6 +27,7 @@ public class AdminNovelListServlet extends HttpServlet {
 		
 		List<AuthorBean> authorList = new ArrayList<>();
 		List<NovelBean> novelList = new ArrayList<>();
+		List<GenreBean> genreList = new ArrayList<>();
 		List<NovelBean> listOfSearchedNovels = new ArrayList<>();
 		NovelDAO nDao = new NovelDAO();
 		
@@ -34,10 +36,12 @@ public class AdminNovelListServlet extends HttpServlet {
 			
 			authorList = nDao.getAllAuthors();
 			novelList = nDao.getAllNovels();
+			genreList = nDao.getAllGenres();
 			listOfSearchedNovels = nDao.searchAllNovelsByTitle(searchTitle);
 			
 			//作家一覧
 			authorResult(request, response, authorList);
+			request.setAttribute("genreList",genreList);
 			
 			if (searchTitle == null || searchTitle.isEmpty()) {
 				//小説一覧
