@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ page import="model.*" %>
 <%@ page import="model.dao.*" %>
 <%@ page import="model.bean.*" %>
@@ -9,21 +9,23 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>管理者 小説一覧</title>
+<title>管理画面 作家別 小説一覧</title>
 <link rel="stylesheet" href="./css/sanitize.css">
-<link rel="stylesheet" href="./css/novel-list.css">
 </head>
 <body>
-<jsp:include page="/includes/admin-navbar.jsp" />
+	<!-- ナビゲーション -->
+	<jsp:include page="/includes/admin-navbar.jsp" />
 	
-	<form action="AdminNovelListServlet" method="get">
+	<!-- 検索ボックス 全ての小説 -->
+	<% Integer authorId = (Integer)request.getSession().getAttribute("authorId");  %>
+	<form action="AdminNovelListByAuthorServlet" method="get">
 		<input type="text" name="search" placeholder="タイトルを検索">
+		<input type="hidden" name="authorId" value="<%=authorId %>">
 	</form>
-	<jsp:include page="/includes/admin-author-list.jsp" />
-
 	
-	<p>${message}</p>
-		
+	<!-- 作家一覧 -->
+	<jsp:include page="/includes/admin-author-list.jsp" />
+	
 	<!-- 小説一覧 -->
 	<% List<NovelBean> novelList = (List<NovelBean>) request.getAttribute("novelList"); %>
 	<% String novelUnregistered = (String) request.getAttribute("novelUnregistered"); %>
@@ -34,17 +36,12 @@
 	<% } else if (novelUnregistered != null) { %>
 	<p><%=novelUnregistered %></p>
 	<% } else { %>
-		<ul>
-			<% for (NovelBean novels : novelList) { %>
-				<li> <!-- 管理者小説詳細へ -->
-					 <a href="AdminNovelEditServlet?novelId=<%= novels.getNovelId() %>">
-						<img alt="No Image" src="./images/<%=novels.getImage() %>">
-						<p><%=novels.getTitle() %></p>
-					</a>
-				</li>
-			<% } %>
-		</ul>
+	 	<% for (NovelBean novels : novelList) { %>
+	 	<a href="AdminNovelEditServlet?novelId=<%=novels.getNovelId() %>">
+	 		<img alt="小説画像" src="./images/<%=novels.getImage() %>">
+	 	</a>
+	 	<p><%=novels.getTitle() %></p>
+	 	<% } %>
 	<% } %>
-
 </body>
 </html>

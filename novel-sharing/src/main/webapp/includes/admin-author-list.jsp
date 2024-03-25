@@ -12,9 +12,10 @@
 	<% if (authorUnregistered != null) { %>
 	<p><%= authorUnregistered %></p>
 	<% } else { %>
-		<% for (AuthorBean author : authorList) { %>
 		<ul>
-			<li><a href="#"><%=author.getAuthorName() %></a></li>
+			<li><a href="AdminNovelListServlet">全ての作家</a></li>
+			<% for (AuthorBean author : authorList) { %>
+			<li><a href="AdminNovelListByAuthorServlet?authorId=<%=author.getAuthorId() %>"><%=author.getAuthorName() %></a></li>
+			<% } %>
 		</ul>
-		<% } %>
 	<% } %>
