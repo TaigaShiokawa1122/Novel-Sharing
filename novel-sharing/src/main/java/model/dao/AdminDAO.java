@@ -376,5 +376,30 @@ public class AdminDAO {
 					return processingNum;
 				}
 				
+				//小説追加
+				public int addNovel(String title, String summary , int authorId , int genreId ) throws ClassNotFoundException, SQLException {
+					
+						String sql = "INSERT INTO novel_sharing_app_db.novels (title, summary, author_id, genre_id, image) VALUES (?, ?, ?, ?,'羅生門.jpg')";
+						int processingNum = 0;
+						try (Connection con = DBConnection.getConnection(); 
+								PreparedStatement pstmt = con.prepareStatement(sql)) {
+							pstmt.setString(1, title);
+							pstmt.setString(2, summary);
+							pstmt.setInt(3, authorId);
+							pstmt.setInt(4, genreId);
+							processingNum = pstmt.executeUpdate();
+						} catch (SQLException e) {
+							System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+				                               ", SQLステート: " + e.getSQLState() + 
+				                               ", エラーコード: " + e.getErrorCode());
+						} catch (Exception e) {
+							System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+				                               ", メッセージ: " + e.getMessage() + 
+				                               ", スタックトレース: " + e.getStackTrace());
+						}
+						
+						return processingNum;
+				
+				}
 				
 }
